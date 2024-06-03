@@ -10,8 +10,7 @@ app.use(cors());
 // application routes
 app.use('/api/v1/students', StudentRoutes);
 
-const getAController = (req: Request, res: Response) => {
-  const a = 10;
+const getAController = (req: Request, res: Response) => { 
 
   res.send('Hello World!');
 };
