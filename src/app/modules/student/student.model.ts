@@ -13,14 +13,14 @@ const studentNameSchema = new Schema<StudentName>({
     required: [true, 'First Name is required.'],
     trim: true,
     maxLength: [20, "First Name can't be more than 20 characters."],
-    validate: {
-      validator: function (value: string) {
-        const firstNameStr =
-          value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
-        return value === firstNameStr;
-      },
-      message: '{VALUE} is not in capitalize format.',
-    },
+    // validate: {
+    //   validator: function (value: string) {
+    //     const firstNameStr =
+    //       value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+    //     return value === firstNameStr;
+    //   },
+    //   message: '{VALUE} is not in capitalize format.',
+    // },
   },
   middleName: {
     type: String,
@@ -28,10 +28,10 @@ const studentNameSchema = new Schema<StudentName>({
   lastName: {
     type: String,
     required: [true, 'Last Name is required.'],
-    validate: {
-      validator: (value: string) => validator.isAlpha(value),
-      message: "{VALUE} isn't valid",
-    },
+    // validate: {
+    //   validator: (value: string) => validator.isAlpha(value),
+    //   message: "{VALUE} isn't valid",
+    // },
   },
 });
 
@@ -102,10 +102,10 @@ const studentSchema = new Schema<Student>({
     type: String,
     required: [true, 'Email is required'],
     unique: true,
-    validate: {
-      validator: (value: string) => validator.isEmail(value),
-      message: '{VALUE} is not a valid email type',
-    },
+    // validate: {
+    //   validator: (value: string) => validator.isEmail(value),
+    //   message: '{VALUE} is not a valid email type',
+    // },
   },
   contactNo: {
     type: String,
