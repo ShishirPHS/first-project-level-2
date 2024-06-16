@@ -38,6 +38,10 @@ const localGuardianValidationSchema = z.object({
 // Define the validation schema for Student
 const studentValidationSchema = z.object({
   id: z.string().min(1, 'ID is required.'),
+  password: z
+    .string()
+    .min(6, "password can't be less than 6 characters")
+    .max(20),
   name: studentNameValidationSchema,
   gender: z.enum(['male', 'female', 'other']).refine(
     (val) => ['male', 'female', 'other'].includes(val),
