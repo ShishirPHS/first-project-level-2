@@ -6,6 +6,8 @@ import {
   StudentModel,
   TStudentName,
 } from './student.interface';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
 const studentNameSchema = new Schema<TStudentName>({
   firstName: {
@@ -152,8 +154,16 @@ const studentSchema = new Schema<TStudent, StudentModel>({
 });
 
 // pre save middleware / hook: will work on create() or save()
-studentSchema.pre('save', function () {
-  console.log(this, 'pre hook: we will save the data');
+studentSchema.pre('save', async function (next) {
+  // console.log(this, 'pre hook: we will save the data');
+  const student = this;
+  // hashing password and save into db
+  student.password = await bcrypt.hash(
+    student.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+
+  next();
 });
 
 // pre save middleware / hook
