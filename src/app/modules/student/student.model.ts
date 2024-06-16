@@ -145,6 +145,16 @@ const studentSchema = new Schema<TStudent, StudentModel>({
   },
 });
 
+// pre save middleware / hook: will work on create() or save()
+studentSchema.pre('save', function () {
+  console.log(this, 'pre hook: we will save the data');
+});
+
+// pre save middleware / hook
+studentSchema.post('save', function () {
+  console.log(this, 'post hook: we saved our data');
+});
+
 // creating a custom static method
 
 studentSchema.statics.isStudentExists = async function (id: string) {
