@@ -148,8 +148,15 @@ const studentSchema = new Schema<TStudent, StudentModel>({
   },
   isActive: {
     type: String,
-    enum: ['active', 'blocked'],
+    enum: {
+      values: ['active', 'blocked'],
+      message: '{VALUE} is not a valid status',
+    },
     default: 'active',
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -167,8 +174,15 @@ studentSchema.pre('save', async function (next) {
 });
 
 // pre save middleware / hook
-studentSchema.post('save', function () {
-  console.log(this, 'post hook: we saved our data');
+studentSchema.post('save', function (doc, next) {
+  doc.password = '';
+
+  next();
+});
+
+// query middleware
+studentSchema.pre('find', function (next) {
+  next();
 });
 
 // creating a custom static method
